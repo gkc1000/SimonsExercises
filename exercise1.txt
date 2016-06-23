@@ -3,9 +3,13 @@ Building PySCF:
 PySCF should build very easily on a Linux machine.
 Check the build instructions at: https://github.com/sunqm/pyscf
 
-If you are using a Mac, using gcc as the compiler rather than clang,
-and set the DYLD_LIBRARY_PATH as described above.
-
+[MAC users]
+ - If you are using a Mac, if possible use gcc as the compiler rather than clang,
+and set the DYLD_LIBRARY_PATH as described above. Then everything should work.
+ - If this is not possible, Cmake will complain that there is no gfortran. You
+   can install gfortran easily via http://hpc.sourceforge.net/
+ - Finally, you will have to disable OpenMP. Please pull from the "dev" branch.
+ 
 DMRG programs:
 
 The DMRG exercises are optional, however, if you may wish to build an
