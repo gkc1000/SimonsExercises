@@ -1,0 +1,85 @@
+Getting started
+===============
+Documentation for PySCF is generally found in two places:
+
+1. Online manual/tutorial at http://sunqm.net/pyscf/
+2. Large number of examples under the directory "PATH_TO_PYSCF/examples"
+
+AO integrals
+============
+1. Run the script H2_AO_00.py to generate the AO integrals for the H2 molecule in the STO-3G minimal basis.
+   Inspect the [0,0,0,0] 2e- Coulomb integral and [1,1,1,1] 2e- Coulomb integral. Why are they the same?
+   What about the [0,0,1,1] element? How would this change as the bond distance is increased?
+
+   (Note: the Coulomb integral (pq|rs) corresponds to int d1 d2 p(1) q(1) r12^(-1) r(2) s(2)).
+
+2. Modify the script H2_A0_00.py to generate the AO integrals for the H2 molecule in the 6-31G basis.
+   At the same time, look up the definition of the 6-31G basis for H in the file "PATH_TO_PYSCF/gto/basis/6-31g.dat".
+   Print out the [0,0,0,0], [1,1,1,1], [2,2,2,2], [3,3,3,3] elements.
+
+   From the definition of the basis set, can you understand why the [0,0,0,0] is larger than the [1,1,1,1] element?
+
+Basis set convergence
+=====================
+3. The script H2_AO_01.py runs a mean-field HF calculation and a Full CI (ED) calculation in the cc-pVDZ basis. 
+
+   Verify for yourself that (i) the convergence of the HF calculation is exponential in basis number,
+   and (ii) the FCI calculation is algebraic, by repeating the calculations in the cc-pVTZ, cc-pVQZ, and cc-pV5Z bases.
+
+Orthogonal integrals
+====================
+4. The script H2_ORTH_00.py generates the integrals transformed to the Hartree-Fock molecular orbital basis. Try it out,
+   and modify it to generate integrals corresponding to the S^(-1/2) orthogonalized AO basis (this means
+   set the orbital coeffients to the S^(-1/2) matrix).
+
+5. (Advanced). H2_ORTH_01.py shows how to generate Boys localized orbitals. Generate the split-localized orbitals for H4. Visualize
+   them (either graphically, or by printing out the coefficient matrix). (See also PATH_TO_PYSCF/examples/tools/test_boys.py).
+
+With the above you should be now set up to extract Hamiltonian matrix elements for any molecular system, in
+a variety of orthogonalized bases!
+
+Running calculations
+====================
+6. The script H6_curve.py sets up HF, MP2, CCSD, FCI for the H6 hydrogen chain. Try it out.
+   Following PATH_TO_PYSCF/examples/mcscf/00-simple_casscf.py, set up a CAS(6,6) calculation for the same system.
+
+7. The script H10_DMRG_curve runs a DMRG calculation for the H10 chain in the HF MO basis. Try it out, varying
+   maxM, the DMRG bond dimension.
+
+8. (Advanced) We can now test the DMRG orbital dependence. Using your knowledge of above, modify the above code to generate
+   integrals corresponding to the S^{-1/2} basis and split-localized basis, and rerun the DMRG calculation. 
+
+Hacking PySCF 
+=============
+9. You may also wish to use PySCF with Hamiltonians other than the ab-initio quantum chemistry Hamiltonian.
+   It is generally fairly easy to "hack" PySCF to support a different Hamiltonian: either the Hamiltonian
+   can be directly input into the method, or one replaces some functions that are designed to return
+   the Hamiltonian integrals.
+
+   The script HF_inputH.py shows a Hartree-Fock calculation with an input Hamiltonian.
+
+10. The script in FCI_inputH.py shows how to input a Hamiltonian into the FCI solver. Even though the FCI
+    solver is designed for general quantum chemistry Hamiltonians, it is very efficient. Modify the script
+    to take a 1D Hubbard Hamiltonian with 12 sites, and see how long it takes to determine the ground-state.
+
+11. The FCI code supports convenient general second quantized algebra. Check out
+    PATH_TO_PYSCF/examples/fci/31-apply_2nd_quantized_op.py
+    This provides an easy way to make measurements.
+
+    There are also specialized functions to
+    generate the 1, 2, 3, 4 particle DM's, see
+    PATH_TO_PYSCF/examples/fci/14-density_matrix.py
+
+12. (Graduation). Using your above knowledge:
+    a. run a FCI calculation for the H2 molecule, 6-31G basis, using HF molecular orbitals
+       as the orthogonal basis,
+    b. Print out the FCI coefficients, and order them by size (save for later),
+    c. Generate the FCI 1-particle density matrix,
+    d. diagonalize it to obtain the natural orbitals,
+    e. redo the FCI in this natural orbital basis,
+    f. Examine the new FCI coefficients, and confirm the rapid convergence of FCI in the
+       natural orbital basis.
+
+=========================================
+Congratulations, you are now a PySCF pro!   
+=========================================
