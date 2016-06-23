@@ -9,7 +9,8 @@ and set the DYLD_LIBRARY_PATH as described above. Then everything should work.
  - If this is not possible, Cmake will complain that there is no gfortran. You
    can install gfortran easily via http://hpc.sourceforge.net/
  - Finally, you will have to disable OpenMP. Please pull from the "dev" branch.
- 
+   After cloning, type "git pull origin dev"
+   
 DMRG programs:
 
 The DMRG exercises are optional, however, if you may wish to build an
